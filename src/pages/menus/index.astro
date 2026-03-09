@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// TODO: Replace with real menu entries
+const menus = [
+  {
+    slug:     'example-dinner',
+    title:    'Example Dinner Menu',
+    date:     'March 2025',
+    occasion: 'Dinner Party',
+    excerpt:  'A placeholder menu entry. Replace with your real menus.',
+  },
+];
+---
+
+<BaseLayout
+  title="Menus"
+  description="Curated menus for events, dinners, and moments worth remembering."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+
+    <header class="mb-14">
+      <p class="font-mono text-cn-gold text-sm mb-3">/ menus</p>
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-cn-text mb-4">Menus</h1>
+      <p class="text-cn-muted text-lg max-w-xl">
+        Food is an event. These are the menus I've put together for dinners, gatherings, and celebrations.
+      </p>
+    </header>
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      {menus.map(({ slug, title, date, occasion, excerpt }) => (
+        <a
+          href={slug}
+          class="group block bg-cn-surface border border-cn-border rounded-xl p-6 hover:border-cn-gold/50 hover:bg-cn-surface-2 transition-all"
+        >
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs font-mono text-cn-gold bg-cn-gold/10 rounded px-2 py-0.5">{occasion}</span>
+            <span class="text-xs text-cn-muted">{date}</span>
+          </div>
+          <h2 class="font-display font-semibold text-cn-text text-lg mb-2 group-hover:text-cn-gold-l transition-colors">
+            {title}
+          </h2>
+          <p class="text-cn-muted text-sm leading-relaxed">{excerpt}</p>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

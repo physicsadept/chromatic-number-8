@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// TODO: Fill in your actual work history, skills, and education
+const experience = [
+  {
+    title:    'Job Title',
+    company:  'Company Name',
+    period:   '2022 – Present',
+    bullets:  [
+      'Describe your key responsibilities and impact here.',
+      'Quantify results where possible.',
+      'Highlight any OR/data science work.',
+    ],
+  },
+  {
+    title:    'Previous Role',
+    company:  'Previous Company',
+    period:   '2019 – 2022',
+    bullets:  [
+      'Another role description.',
+      'What did you build or improve?',
+    ],
+  },
+];
+
+const skills = {
+  'Operations Research': ['Linear Programming', 'Integer Programming', 'Simulation', 'Network Flows', 'Stochastic Optimization'],
+  'Data & Engineering':  ['Python', 'SQL', 'R', 'Gurobi', 'CPLEX'],
+  'Other':               ['Git', 'LaTeX', 'Tableau'],
+};
+
+const education = [
+  { degree: 'M.S. Operations Research', institution: 'University Name', year: '20XX' },
+  { degree: 'B.S. Field of Study',      institution: 'University Name', year: '20XX' },
+];
+---
+
+<BaseLayout
+  title="Resume"
+  description="Operations research professional with a background in optimization, data science, and creative problem solving."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+
+    <header class="mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+      <div>
+        <p class="font-mono text-cn-teal text-sm mb-3">/ resume</p>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-cn-text mb-4">Resume</h1>
+        <p class="text-cn-muted text-lg max-w-xl">
+          <!-- TODO: Short 1–2 sentence professional summary -->
+          Operations researcher and problem-solver. Interested in optimization, data, and elegant solutions to messy real-world problems.
+        </p>
+      </div>
+      <!-- TODO: Add link to PDF resume if you have one -->
+      <a
+        href="#"
+        class="self-start sm:self-auto flex-shrink-0 px-4 py-2 rounded-lg border border-cn-teal/40 text-cn-teal text-sm font-medium hover:bg-cn-teal/10 transition-colors"
+      >
+        Download PDF ↓
+      </a>
+    </header>
+
+    <!-- Experience -->
+    <section class="mb-16">
+      <h2 class="font-display font-semibold text-xl text-cn-text mb-8 pb-3 border-b border-cn-border">
+        Experience
+      </h2>
+      <div class="space-y-10">
+        {experience.map(({ title, company, period, bullets }) => (
+          <div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3">
+              <div>
+                <h3 class="font-display font-semibold text-cn-text">{title}</h3>
+                <p class="text-cn-teal text-sm">{company}</p>
+              </div>
+              <span class="font-mono text-cn-muted text-sm flex-shrink-0">{period}</span>
+            </div>
+            <ul class="space-y-1.5">
+              {bullets.map((b) => (
+                <li class="text-cn-muted text-sm flex gap-3">
+                  <span class="text-cn-teal mt-1 flex-shrink-0">▸</span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-16">
+      <h2 class="font-display font-semibold text-xl text-cn-text mb-8 pb-3 border-b border-cn-border">
+        Skills
+      </h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {Object.entries(skills).map(([category, items]) => (
+          <div>
+            <h3 class="font-mono text-cn-teal text-xs uppercase tracking-widest mb-3">{category}</h3>
+            <ul class="space-y-1">
+              {items.map((s) => (
+                <li class="text-cn-muted text-sm">{s}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section>
+      <h2 class="font-display font-semibold text-xl text-cn-text mb-8 pb-3 border-b border-cn-border">
+        Education
+      </h2>
+      <div class="space-y-4">
+        {education.map(({ degree, institution, year }) => (
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+            <div>
+              <p class="text-cn-text font-medium">{degree}</p>
+              <p class="text-cn-muted text-sm">{institution}</p>
+            </div>
+            <span class="font-mono text-cn-muted text-sm">{year}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

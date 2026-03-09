@@ -1,0 +1,39 @@
+---
+interface Props {
+  href:        string;
+  title:       string;
+  description: string;
+  accent?:     'purple' | 'gold' | 'teal';
+}
+
+const { href, title, description, accent = 'purple' } = Astro.props;
+
+const accentMap = {
+  purple: 'group-hover:text-cn-purple-l border-cn-purple/20 group-hover:border-cn-purple/50',
+  gold:   'group-hover:text-cn-gold-l   border-cn-gold/20   group-hover:border-cn-gold/50',
+  teal:   'group-hover:text-cn-teal     border-cn-teal/20   group-hover:border-cn-teal/50',
+};
+
+const iconColor = {
+  purple: 'text-cn-purple',
+  gold:   'text-cn-gold',
+  teal:   'text-cn-teal',
+};
+---
+
+<a
+  href={href}
+  class="group block bg-cn-surface border border-cn-border rounded-xl p-6 transition-all duration-200 hover:bg-cn-surface-2 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/40"
+>
+  <!-- Slot for icon / decorative element -->
+  <div class:list={['mb-4 transition-colors', iconColor[accent]]}>
+    <slot name="icon" />
+  </div>
+
+  <h3 class:list={['font-display font-semibold text-lg mb-2 transition-colors text-cn-text', accentMap[accent]]}>
+    {title}
+  </h3>
+  <p class="text-cn-muted text-sm leading-relaxed">
+    {description}
+  </p>
+</a>

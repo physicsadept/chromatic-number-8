@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionCard from '../components/SectionCard.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// K₈ graph — 8 nodes on a circle, fully connected (chromatic number = 8)
+const cx = 200, cy = 200, r = 150;
+const nodeColors = [
+  '#a855f7', // purple
+  '#ec4899', // pink
+  '#3b82f6', // blue
+  '#14b8a6', // teal
+  '#22c55e', // green
+  '#eab308', // yellow
+  '#f97316', // orange
+  '#ef4444', // red
+];
+
+const nodes = nodeColors.map((color, i) => {
+  const angle = -Math.PI / 2 + (2 * Math.PI * i) / 8;
+  return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), color };
+});
+
+const edges: { x1: number; y1: number; x2: number; y2: number }[] = [];
+for (let i = 0; i < 8; i++) {
+  for (let j = i + 1; j < 8; j++) {
+    edges.push({ x1: nodes[i].x, y1: nodes[i].y, x2: nodes[j].x, y2: nodes[j].y });
+  }
+}
+
+const sections = [
+  {
+    href:        `${base}music`,
+    title:       'Music',
+    description: 'Original compositions, performances, and what\'s been living in my ears lately.',
+    accent:      'purple' as const,
+    icon:        'M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3',
+  },
+  {
+    href:        `${base}menus`,
+    title:       'Menus',
+    description: 'Carefully curated menus for events, dinners, and moments worth remembering.',
+    accent:      'gold' as const,
+    icon:        'M3 6h18M3 12h18M3 18h18',
+  },
+  {
+    href:        `${base}resume`,
+    title:       'Resume',
+    description: 'Operations research, data science, and a career built on making complex systems work.',
+    accent:      'teal' as const,
+    icon:        'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  },
+  {
+    href:        `${base}ink`,
+    title:       'Ink',
+    description: 'A living document of my tattoo journey — the art, the stories, the people behind them.',
+    accent:      'purple' as const,
+    icon:        'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z',
+  },
+  {
+    href:        `${base}blog`,
+    title:       'Writing',
+    description: 'Notes on operations research, music, culture, and whatever I can\'t stop thinking about.',
+    accent:      'gold' as const,
+    icon:        'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
+  },
+];
+---
+
+<BaseLayout title="Home">
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden dot-grid">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
+      <!-- Text -->
+      <div class="flex-1 text-center lg:text-left">
+        <p class="font-mono text-cn-muted text-sm mb-4 tracking-widest uppercase">chromatic-number-8</p>
+        <h1 class="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-none mb-6">
+          <span class="text-cn-purple-l">χ</span><span class="text-cn-gold">₈</span>
+        </h1>
+        <p class="text-cn-text text-xl sm:text-2xl font-display font-light leading-snug mb-4 max-w-lg mx-auto lg:mx-0">
+          <!-- TODO: your tagline here -->
+          Music. Math. Food. Ink.<br />
+          <span class="text-cn-muted">All things me.</span>
+        </p>
+        <p class="text-cn-muted text-sm max-w-md mx-auto lg:mx-0 leading-relaxed">
+          A personal site at the intersection of operations research, creativity, and whatever's
+          currently stuck in my head. Comfortable sharing with colleagues and strangers alike.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
+          <a
+            href={`${base}resume`}
+            class="px-5 py-2.5 rounded-lg bg-cn-purple text-white font-medium text-sm hover:bg-cn-purple-l transition-colors"
+          >
+            View Resume
+          </a>
+          <a
+            href={`${base}blog`}
+            class="px-5 py-2.5 rounded-lg border border-cn-border text-cn-text font-medium text-sm hover:border-cn-purple/50 hover:bg-cn-surface transition-colors"
+          >
+            Read Writing
+          </a>
+        </div>
+      </div>
+
+      <!-- K₈ Graph visualization -->
+      <div class="flex-shrink-0 w-64 h-64 sm:w-72 sm:h-72 opacity-80">
+        <svg
+          viewBox="0 0 400 400"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          class="w-full h-full"
+        >
+          <!-- Edges: K₈ has 28 edges -->
+          <g opacity="0.2">
+            {edges.map((e) => (
+              <line
+                x1={e.x1} y1={e.y1}
+                x2={e.x2} y2={e.y2}
+                stroke="#6b6b8a"
+                stroke-width="1"
+              />
+            ))}
+          </g>
+          <!-- Nodes: each a unique color (proper 8-coloring of K₈) -->
+          {nodes.map((n) => (
+            <circle cx={n.x} cy={n.y} r="10" fill={n.color} opacity="0.9" />
+          ))}
+        </svg>
+        <p class="text-center text-cn-muted text-xs font-mono mt-2 opacity-60">
+          K₈ · χ(G) = 8
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section Cards -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-24">
+    <h2 class="font-display font-semibold text-cn-muted text-sm uppercase tracking-widest mb-8">Explore</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {sections.map(({ href, title, description, accent, icon }) => (
+        <SectionCard {href} {title} {description} {accent}>
+          <svg slot="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d={icon} />
+          </svg>
+        </SectionCard>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>

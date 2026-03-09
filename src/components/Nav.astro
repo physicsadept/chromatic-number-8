@@ -1,0 +1,80 @@
+---
+const base = import.meta.env.BASE_URL;
+const path = Astro.url.pathname;
+
+const navItems = [
+  { label: 'Music',   href: `${base}music`  },
+  { label: 'Menus',  href: `${base}menus`  },
+  { label: 'Resume', href: `${base}resume` },
+  { label: 'Ink',    href: `${base}ink`    },
+  { label: 'Writing',href: `${base}blog`   },
+];
+
+function isActive(href: string) {
+  return path === href || path.startsWith(href + '/');
+}
+---
+
+<header class="border-b border-cn-border sticky top-0 z-50 bg-cn-bg/90 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+
+    <!-- Wordmark / Logo -->
+    <a
+      href={base || '/'}
+      class="font-display font-bold text-xl tracking-tight select-none group"
+      aria-label="chromatic-number-8 home"
+    >
+      <span class="text-cn-purple-l group-hover:text-cn-purple transition-colors">χ</span><span class="text-cn-gold group-hover:text-cn-gold-l transition-colors">₈</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav aria-label="Main navigation">
+      <ul class="hidden sm:flex items-center gap-1">
+        {navItems.map(({ label, href }) => (
+          <li>
+            <a
+              href={href}
+              class:list={[
+                'px-3 py-1.5 rounded text-sm font-medium transition-colors',
+                isActive(href)
+                  ? 'text-cn-text bg-cn-surface-2'
+                  : 'text-cn-muted hover:text-cn-text hover:bg-cn-surface',
+              ]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Mobile nav toggle (hamburger — no JS needed with CSS) -->
+      <details class="sm:hidden relative">
+        <summary class="list-none cursor-pointer p-2 text-cn-muted hover:text-cn-text" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6"  x2="19" y2="6" />
+            <line x1="3" y1="11" x2="19" y2="11" />
+            <line x1="3" y1="16" x2="19" y2="16" />
+          </svg>
+        </summary>
+        <ul class="absolute right-0 top-10 bg-cn-surface border border-cn-border rounded-lg shadow-xl py-2 min-w-[160px]">
+          {navItems.map(({ label, href }) => (
+            <li>
+              <a
+                href={href}
+                class:list={[
+                  'block px-4 py-2 text-sm transition-colors',
+                  isActive(href)
+                    ? 'text-cn-purple-l'
+                    : 'text-cn-muted hover:text-cn-text',
+                ]}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </nav>
+
+  </div>
+</header>
