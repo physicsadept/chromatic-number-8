@@ -7,14 +7,14 @@ const base = import.meta.env.BASE_URL;
 // K₈ graph — 8 nodes on a circle, fully connected (chromatic number = 8)
 const cx = 200, cy = 200, r = 150;
 const nodeColors = [
-  '#6c5ba9', // light purple
-  '#788f41', // sage
-  '#7abc8b', // sea foam
-  '#f46f23', // bright orange
-  '#fbe899', // solar flare
-  '#00add5', // baby blue
-  '#dd373c', // tangerine
-  '#c299c5', // nova
+  '#6c5ba9', // light purple | dark purple
+  '#c299c5', // nova | lilac
+  '#00add5', // baby blue | blue
+  '#7abc8b', // sea foam | sea green
+  '#788f41', // sage | grass green
+  '#fbe899', // solar flare | sandy yellow
+  '#f46f23', // bright orange | orange
+  '#dd373c', // tangerine | red
 ];
 
 const nodes = nodeColors.map((color, i) => {
