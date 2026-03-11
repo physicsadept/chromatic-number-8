@@ -8,13 +8,13 @@ export default {
         'cn-surface':   '#0d0d1a',
         'cn-surface-2': '#12122a',
         'cn-border':    '#1e1e3a',
-        'cn-text':      '#e4e4f0',
+        'cn-text':      '#785ef0',  // IBM Indigo 50 — body text (purple)
         'cn-muted':     '#6b6b8a',
-        'cn-purple':    '#a855f7',
-        'cn-purple-l':  '#c084fc',
-        'cn-gold':      '#f59e0b',
-        'cn-gold-l':    '#fbbf24',
-        'cn-teal':      '#2dd4bf',
+        'cn-purple':    '#785ef0',  // IBM Indigo 50
+        'cn-purple-l':  '#dc267f',  // IBM Magenta 50 — hover / accent
+        'cn-gold':      '#ffb000',  // IBM Gold 20
+        'cn-gold-l':    '#fe6100',  // IBM Orange 40
+        'cn-teal':      '#648fff',  // IBM Ultramarine 40 — blue accent
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
